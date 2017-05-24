@@ -2,10 +2,10 @@ package negocio;
 
 public class Contato {
 	
-	private String nome;
-	private int telefone;
+	private String nome,telefone;
+	 
 
-	public Contato(String nome, int telefone) {
+	public Contato(String nome, String telefone) {
 		super();
 		this.nome = nome;
 		this.telefone = telefone;
@@ -13,14 +13,9 @@ public class Contato {
 	public String getNome() {
 		return nome;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	public int getTelefone() {
+
+	public String getTelefone() {
 		return telefone;
-	}
-	public void setTelefone(int telefone) {
-		this.telefone = telefone;
 	}
 	@Override
 	public String toString() {
