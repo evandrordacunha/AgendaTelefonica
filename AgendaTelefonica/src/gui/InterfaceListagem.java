@@ -8,31 +8,26 @@ import javax.swing.JTextArea;
 
 import negocio.Contato;
 
-public class InterfaceListagem {
+public class InterfaceListagem extends JFrame {
 
 	private JTextArea textArea_1;
 	private List<Contato> listagem;
 	
-	public InterfaceListagem(List l,JTextArea t ) {
-		super();
-		listagem = l;
-		textArea_1 = t;
-		preencher();
-		JScrollPane painelRolagem = new JScrollPane(textArea_1);
- 
-	}
 	public InterfaceListagem(List l) {
-		super();
+		super("Listagem");
 		listagem = l;
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		textArea_1 = new JTextArea();
 		preencher();
 		JScrollPane painelRolagem = new JScrollPane(textArea_1);
- 
+		getContentPane().add(painelRolagem);
+		setBounds(20, 20, 200, 100);
 	}
+	
 	
 	private void preencher() {
 		for(Object o : listagem) {
-			textArea_1.append(o.toString() + "\r\n");
+			textArea_1.append(o + "\r\n");
 		}
 	}
 }
