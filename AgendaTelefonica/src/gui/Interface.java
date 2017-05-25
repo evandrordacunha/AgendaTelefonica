@@ -43,7 +43,7 @@ public class Interface extends JFrame {
 	 */
 	public Interface() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 739, 432);
+		setBounds(100, 100, 739, 553);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -51,7 +51,7 @@ public class Interface extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(0, 128, 128));
-		panel.setBounds(0, 0, 335, 156);
+		panel.setBounds(0, 0, 335, 224);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -83,27 +83,27 @@ public class Interface extends JFrame {
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(SystemColor.inactiveCaptionText);
-		panel_1.setBounds(345, 0, 368, 394);
+		panel_1.setBounds(345, 0, 368, 504);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel lbLista = new JLabel("Listar todos os contatos da agenda:");
+		JLabel lbLista = new JLabel("Contatos da Agenda:");
 		lbLista.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lbLista.setForeground(SystemColor.text);
-		lbLista.setBounds(69, 10, 264, 31);
+		lbLista.setBounds(111, 11, 165, 31);
 		panel_1.add(lbLista);
 		
 		JTextArea textArea_1 = new JTextArea();
-		textArea_1.setBounds(69, 71, 250, 312);
+		textArea_1.setBounds(73, 53, 250, 380);
 		panel_1.add(textArea_1);
 		
-		JButton btListar = new JButton("Listar");
-		btListar.setBounds(69, 40, 250, 22);
+		JButton btListar = new JButton("Salvar contatos");
+		btListar.setBounds(207, 442, 116, 22);
 		panel_1.add(btListar);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(112, 128, 144));
-		panel_2.setBounds(0, 164, 335, 219);
+		panel_2.setBounds(0, 235, 335, 269);
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
 		
