@@ -42,13 +42,13 @@ public class AgendaTest {
 	 * Adiciona um contato de nome Rafa na posição 1 da lista pois já temos 1
 	 * contato cadastrado, e retorna true se foi adicionado normalmente
 	 */
-	/*
+	 /*
 	@Test
 	public void testAdicionar() throws CadastroException {
 		a.adicionarContato(c7);
 		assertTrue(a.getAgenda().get(1).getNome().equals(c7.getNome()));
 	}
-*/
+ 
 	/**
 	 * Insere contatos com nomes desordenados: Epaminondas, Melissa, Kelly,
 	 * Adão. Chama o método ordenaPorNome() e testa se o primeiro nome da lista
@@ -104,11 +104,11 @@ public class AgendaTest {
 		assertEquals("Adao", a.getAgenda().get(0).getNome());
 	}
 	*/
-	/*
+	
 	@Test
 	public void testRecuperarDados() throws CadastroException{
 		
 		System.out.println(a.recuperarDados());
 	}
-	*/
+	 
 }

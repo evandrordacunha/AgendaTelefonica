@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import negocio.AgendaFacade;
+
 import java.awt.SystemColor;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -31,6 +34,8 @@ public class Interface extends JFrame {
 				try {
 					Interface frame = new Interface();
 					frame.setVisible(true);
+					AgendaFacade ag = new AgendaFacade();
+					ag.recuperarDados();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -93,13 +98,13 @@ public class Interface extends JFrame {
 		lbLista.setBounds(111, 11, 165, 31);
 		panel_1.add(lbLista);
 		
-		JTextArea textArea_1 = new JTextArea();
-		textArea_1.setBounds(73, 53, 250, 380);
-		panel_1.add(textArea_1);
-		
 		JButton btListar = new JButton("Salvar contatos");
-		btListar.setBounds(207, 442, 116, 22);
+		btListar.setBounds(70, 442, 253, 22);
 		panel_1.add(btListar);
+		
+		JTextArea textArea_1 = new JTextArea();
+		textArea_1.setBounds(70, 43, 253, 388);
+		panel_1.add(textArea_1);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(112, 128, 144));

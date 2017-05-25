@@ -12,6 +12,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import dados.CadastroContatos;
+import gui.InterfaceListagem;
 
 public class AgendaFacade implements Agenda {
 	
@@ -19,7 +20,7 @@ public class AgendaFacade implements Agenda {
 	 * Atributos
 	 */
 	List<Contato> agenda;
-	Agenda a;
+	CadastroContatos a;
 	private static AgendaFacade ref;
 
 	/**
@@ -28,7 +29,7 @@ public class AgendaFacade implements Agenda {
 	 */
 	public AgendaFacade() throws CadastroException {
 		try {
-			a = (Agenda) CadastroContatos.getInstance();
+			a = CadastroContatos.getInstance();
 		} catch (Exception e) {
 			throw new CadastroException("Falha ao criar fachada!", e);
 		}
@@ -38,7 +39,7 @@ public class AgendaFacade implements Agenda {
 	public void adicionarContato(Contato contato) throws CadastroException {
 		 try {
 			 if(Validacao.validaContato(contato)==true){
-				 a.adicionarContato(contato);
+				 a.adicionar(contato);;
 			 }
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Contato não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -119,18 +120,20 @@ public class AgendaFacade implements Agenda {
 
 	@Override
 	public List recuperarDados() throws CadastroException { 
-		ArrayList<String> contatosRecuperados = new ArrayList<>();
+		List<String> contatosRecuperados = new ArrayList<>();
 		try {
 			//abre o arquivo
-			FileReader fr = new FileReader("lista.txt");
+			FileReader fr = new FileReader("C:/Users/ecunha/git/Agenda/AgendaTelefonica/src/dados/Contatos.txt");
 			BufferedReader br = new BufferedReader(fr);
 			String temp;
 			//A cada interação, é uma linha do arquivo e atribui-a a temp
 			String textoArquivo = "";
 			while ((temp = br.readLine()) != null)
 			{
-				//Aqui gera a sua "lista". No caso, imprimi cada linha na tela.
+				//Aqui gera a sua "lista". No caso, imprime cada linha na tela.
 				contatosRecuperados.add(temp);
+				InterfaceListagem i = new InterfaceListagem(contatosRecuperados);
+				
 			}
 		}
 		catch (FileNotFoundException el)
