@@ -1,14 +1,15 @@
 package negocio;
 
 import java.util.List;
+import java.util.Map;
 
 public interface Agenda {
 	
-	void adicionarContato(Contato contato) throws CadastroException;
-	void ordenarPorNome(List<Contato> contatos) throws CadastroException;
-	List<Contato> getAgenda() throws CadastroException;
+	boolean adicionarContato(Contato contato) throws CadastroException;
+	void ordenarPorNome(List contatos) throws CadastroException;
+	List getAgenda() throws CadastroException;
 	String buscarTelefonePeloNome(String nome) throws CadastroException;
-	List<String> listarNomesEmOrdemAlfabetica() throws CadastroException;
+	List listarNomesEmOrdemAlfabetica() throws CadastroException;
 	List recuperarDados() throws CadastroException;
-	void salvarDados() throws CadastroException;
+	boolean salvarDados(String nome, String telefone) throws CadastroException;
 }

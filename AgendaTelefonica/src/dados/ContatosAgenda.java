@@ -1,55 +1,56 @@
-package negocio;
+package dados;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.MappedByteBuffer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JOptionPane;
 
-import dados.CadastroContatos;
 import gui.InterfaceListagem;
+import negocio.Agenda;
+import negocio.CadastroException;
+import negocio.Contato;
+import negocio.Validacao;
 
-public class AgendaFacade implements Agenda {
-	
+public class ContatosAgenda implements Agenda{
+
 	/**
 	 * Atributos
 	 */
 	List<Contato> agenda;
-	CadastroContatos a;
-	private static AgendaFacade ref;
+	private static ContatosAgenda ref;
 
 	/**
 	 * Construtor
-	 * @throws CadastroException 
 	 */
-	public AgendaFacade() throws CadastroException {
-		try {
-			a = CadastroContatos.getInstance();
-		} catch (Exception e) {
-			throw new CadastroException("Falha ao criar fachada!", e);
-		}
+	public ContatosAgenda() {
+		agenda = new ArrayList<Contato>();
 	}
 
-	@Override
-	public void adicionarContato(Contato contato) throws CadastroException {
-		 try {
-			 if(Validacao.validaContato(contato)==true){
-				 a.adicionar(contato);;
-			 }
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Contato não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
-			throw new CadastroException("Contato não encontrado!", e);
-		}
-		
+	public static ContatosAgenda getInstance() {
+		if (ref == null)
+			ref = new ContatosAgenda();
+		return ref;
 	}
- 
+
+
+
+	/**
+	 * 
+	 * @param contatos
+	 */
 	@Override
-	public void ordenarPorNome(List<Contato> contatos) throws CadastroException {
+	public void ordenarPorNome(List contatos) throws CadastroException {
 		
 		try {
 			Collections.sort(contatos, new Comparator<Contato>() {
@@ -69,33 +70,34 @@ public class AgendaFacade implements Agenda {
 		// TODO Auto-generated method stub
 		return c1.getNome().compareTo(c2.getNome());
 	}
-	
- 
-	@Override
-	public List<Contato> getAgenda() throws CadastroException {
-		return a.getAgenda();
+	/**
+	 * 
+	 * @return agenda
+	 */
+	public List<Contato> getAgenda() {
+		return agenda;
 	}
-
-	@Override
+	/**
+	 * Recebe um nome epercorre a agenda tentando localizar o nome passado por parâmetro
+	 * Se encontrar, traz o telefone.
+	 */
 	public String buscarTelefonePeloNome(String nome) throws CadastroException {
-		 try {
-				Contato c = null;
-				for (int i = 0; i < agenda.size(); i++) {
-					c = agenda.get(i);
-					if (c.getNome().equalsIgnoreCase(nome)) {
-						return c.getTelefone();
-					}
-				}
-				return "Contato não encontrado!";
-			
+		String telefone = "";
+		try {
+			for (Contato c : agenda) {
+				if (c.getNome().equalsIgnoreCase(nome))
+					return c.getTelefone();
+			}
+			return "Contato não encontrado!";
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Telefone não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
 			throw new CadastroException("Telefone não encontrado!", e);
 		}
 	}
+	
+	
 
-	@Override
-	public List<String> listarNomesEmOrdemAlfabetica() throws CadastroException {
+	public List listarNomesEmOrdemAlfabetica() throws CadastroException {
 		try {
 			// cria uma lista temporaria copiando os contatos da agenda
 			List<Contato> contatos = agenda;
@@ -119,11 +121,27 @@ public class AgendaFacade implements Agenda {
 	}
 
 	@Override
-	public List recuperarDados() throws CadastroException { 
+	public boolean adicionarContato(Contato contato) throws CadastroException {
+		 try {
+			 if(Validacao.validaContato(contato)==true){
+				 agenda.add(contato);
+				 return true;
+			 }
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Contato não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
+			throw new CadastroException("Contato não encontrado!", e);
+		
+		}
+		 return false;
+	}
+ 
+
+	@Override
+	public List recuperarDados() throws CadastroException {
 		List<String> contatosRecuperados = new ArrayList<>();
 		try {
 			//abre o arquivo
-			FileReader fr = new FileReader("C:/Users/ecunha/git/Agenda/AgendaTelefonica/src/dados/Contatos.txt");
+			FileReader fr = new FileReader("src/dados/Contatos.txt");
 			BufferedReader br = new BufferedReader(fr);
 			String temp;
 			//A cada interação, é uma linha do arquivo e atribui-a a temp
@@ -133,7 +151,6 @@ public class AgendaFacade implements Agenda {
 				//Aqui gera a sua "lista". No caso, imprime cada linha na tela.
 				contatosRecuperados.add(temp);
 				InterfaceListagem i = new InterfaceListagem(contatosRecuperados);
-				
 			}
 		}
 		catch (FileNotFoundException el)
@@ -146,17 +163,20 @@ public class AgendaFacade implements Agenda {
 		}
 		return contatosRecuperados;
 	}
-		
 
-
-	@Override
-	public void salvarDados() throws CadastroException {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
+	public boolean salvarDados(String nome, String telefone) throws CadastroException {
+        boolean aux = false;
+		try {
+        	BufferedWriter buffWrite = new BufferedWriter(new FileWriter("src/dados/Contatos.txt"));
+			buffWrite.append(nome + "-" +telefone);
+			 buffWrite.close();
+			 aux = true;
+			 return aux;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 	
-
+		}
+    	return aux;
+	}
 }
