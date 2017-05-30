@@ -6,7 +6,6 @@ public class Contato {
 	 
 
 	public Contato(String nome, String telefone) {
-		super();
 		this.nome = nome;
 		this.telefone = telefone;
 	}
@@ -19,7 +18,6 @@ public class Contato {
 	}
 	@Override
 	public String toString() {
-		return "Nome: " +getNome() 
-		+"\n"+"Telefone: "+getTelefone()+"\n";
+		return getNome() +" -> "+"Fone: "+getTelefone()+"\n";
 	}
 }

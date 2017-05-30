@@ -49,13 +49,13 @@ public class AgendaTest {
 	 * se encontra cadastrado.
 	 * 
 	 */
-	
+	/*
 	@Test
 	public void testAdicionar() throws CadastroException {
 		a.adicionarContato(c7);
 		assertTrue(a.getAgenda().contains(c7));
 	}
- 
+ */
 	/**
 	 * Insere contatos com nomes desordenados: Epaminondas, Melissa, Kelly,
 	 * Adão. Chama o método ordenaPorNome() e testa se o primeiro nome da lista

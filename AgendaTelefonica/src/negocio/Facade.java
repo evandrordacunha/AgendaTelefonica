@@ -17,7 +17,6 @@ import java.util.Map;
 import javax.swing.JOptionPane;
 
 import dados.ContatosAgenda;
-import gui.InterfaceListagem;
 
 public class Facade implements Agenda {
 
@@ -78,7 +77,7 @@ public class Facade implements Agenda {
 	}
 
 	@Override
-	public boolean salvarDados(String nome, String telefone) throws CadastroException {
-		return a.salvarDados(nome,telefone);
+	public boolean salvarDados(Contato contato) throws CadastroException {
+		return a.salvarDados(contato);
 	}
 }

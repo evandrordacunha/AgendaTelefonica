@@ -16,7 +16,6 @@ import java.util.Map;
 
 import javax.swing.JOptionPane;
 
-import gui.InterfaceListagem;
 import negocio.Agenda;
 import negocio.CadastroException;
 import negocio.Contato;
@@ -42,9 +41,6 @@ public class ContatosAgenda implements Agenda{
 			ref = new ContatosAgenda();
 		return ref;
 	}
-
-
-
 	/**
 	 * 
 	 * @param contatos
@@ -95,8 +91,6 @@ public class ContatosAgenda implements Agenda{
 		}
 	}
 	
-	
-
 	public List listarNomesEmOrdemAlfabetica() throws CadastroException {
 		try {
 			// cria uma lista temporaria copiando os contatos da agenda
@@ -125,6 +119,7 @@ public class ContatosAgenda implements Agenda{
 		 try {
 			 if(Validacao.validaContato(contato)==true){
 				 agenda.add(contato);
+
 				 return true;
 			 }
 		} catch (Exception e) {
@@ -143,14 +138,12 @@ public class ContatosAgenda implements Agenda{
 			//abre o arquivo
 			FileReader fr = new FileReader("src/dados/Contatos.txt");
 			BufferedReader br = new BufferedReader(fr);
-			String temp;
 			//A cada interação, é uma linha do arquivo e atribui-a a temp
-			String textoArquivo = "";
-			while ((temp = br.readLine()) != null)
-			{
+			String linha = br.readLine();
+			while (linha != null){
 				//Aqui gera a sua "lista". No caso, imprime cada linha na tela.
-				contatosRecuperados.add(temp);
-				InterfaceListagem i = new InterfaceListagem(contatosRecuperados);
+				contatosRecuperados.add("\n"+linha);
+				 linha = br.readLine(); // lê da segunda até a última linha
 			}
 		}
 		catch (FileNotFoundException el)
@@ -163,12 +156,12 @@ public class ContatosAgenda implements Agenda{
 		}
 		return contatosRecuperados;
 	}
-
-	public boolean salvarDados(String nome, String telefone) throws CadastroException {
+	public boolean salvarDados(Contato contato) throws CadastroException {
         boolean aux = false;
 		try {
-        	BufferedWriter buffWrite = new BufferedWriter(new FileWriter("src/dados/Contatos.txt"));
-			buffWrite.append(nome + "-" +telefone);
+			FileWriter fw = new FileWriter("src/dados/Contatos.txt",true);
+        	BufferedWriter buffWrite = new BufferedWriter(fw);
+			buffWrite.write(contato.toString());
 			 buffWrite.close();
 			 aux = true;
 			 return aux;

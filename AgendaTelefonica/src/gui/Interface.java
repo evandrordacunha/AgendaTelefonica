@@ -30,6 +30,7 @@ public class Interface extends JFrame {
 	private JTextField tPesquisa;
 	private static Facade ag;
 	private static InterfaceListener listener;
+	private static JTextArea textArea_1;
 
 	/**
 	 * Launch the application.
@@ -42,7 +43,7 @@ public class Interface extends JFrame {
 					frame.setVisible(true);
 					 ag = new Facade();
 					 listener = new InterfaceListener();
-					ag.recuperarDados();
+					 listener.atualizarListagem(textArea_1, ag);
 					
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -95,22 +96,22 @@ public class Interface extends JFrame {
 		contentPane.add(panel_1);
 		panel_1.setLayout(null); 
 		
-		JTextArea textArea_1 = new JTextArea();
+		textArea_1 = new JTextArea();
 		textArea_1.setBounds(70, 43, 253, 388);
 		panel_1.add(textArea_1);
 		
-		JButton btAdicionar = new JButton("Adicionar");
+		JButton btAdicionar = new JButton("Salvar");
 		btAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				 try {
-					Contato c = listener.adicionarContato(tNome, tTelefone);
-					ag.adicionarContato(c);
-					listener.adicionarListagem(textArea_1, ag);
-				} catch (CadastroException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+					try {
+						Contato c = listener.adicionarContato(tNome, tTelefone,ag);
+						ag.adicionarContato(c);
+						listener.atualizarListagem(textArea_1, ag);
+						System.out.println(ag.getAgenda().toString());
+					} catch (CadastroException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 			}
 		});
 		btAdicionar.setBounds(184, 121, 89, 23);
@@ -123,10 +124,6 @@ public class Interface extends JFrame {
 		lbLista.setForeground(SystemColor.text);
 		lbLista.setBounds(111, 11, 165, 31);
 		panel_1.add(lbLista);
-		
-		JButton btListar = new JButton("Salvar contatos");
-		btListar.setBounds(70, 442, 253, 22);
-		panel_1.add(btListar);
 		
 		
 		JPanel panel_2 = new JPanel();
@@ -146,12 +143,19 @@ public class Interface extends JFrame {
 		panel_2.add(tPesquisa);
 		tPesquisa.setColumns(10);
 		
-		JButton btPesquisar = new JButton("Pesquisar");
-		btPesquisar.setBounds(210, 40, 79, 23);
-		panel_2.add(btPesquisar);
-		
 		JTextArea textArea = new JTextArea();
 		textArea.setBounds(10, 72, 279, 136);
 		panel_2.add(textArea);
+		
+		JButton btPesquisar = new JButton("Pesquisar");
+		btPesquisar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				listener.buscarTelefonePeloNome(tNome,textArea, ag); 
+			}
+		});
+		btPesquisar.setBounds(210, 40, 79, 23);
+		panel_2.add(btPesquisar);
+		
+
 	}
 }

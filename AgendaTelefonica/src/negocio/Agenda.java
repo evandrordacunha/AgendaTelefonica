@@ -11,5 +11,5 @@ public interface Agenda {
 	String buscarTelefonePeloNome(String nome) throws CadastroException;
 	List listarNomesEmOrdemAlfabetica() throws CadastroException;
 	List recuperarDados() throws CadastroException;
-	boolean salvarDados(String nome, String telefone) throws CadastroException;
+	boolean salvarDados(Contato contatos) throws CadastroException;
 }
