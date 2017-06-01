@@ -67,7 +67,7 @@ public class Facade implements Agenda {
 	}
 
 	@Override
-	public List listarNomesEmOrdemAlfabetica() throws CadastroException {
+	public String listarNomesEmOrdemAlfabetica() throws CadastroException {
 		return a.listarNomesEmOrdemAlfabetica();
 	}
 

@@ -125,6 +125,20 @@ public class Interface extends JFrame {
 		lbLista.setBounds(111, 11, 165, 31);
 		panel_1.add(lbLista);
 		
+		JButton btnNewButton = new JButton("Listar Contatos em Ordem Alfab\u00E9tica");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					listener.listarContatosOrdemAlfabetica(textArea_1, ag);
+				} catch (CadastroException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		btnNewButton.setBounds(70, 437, 253, 23);
+		panel_1.add(btnNewButton);
+		
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(112, 128, 144));
@@ -150,7 +164,7 @@ public class Interface extends JFrame {
 		JButton btPesquisar = new JButton("Pesquisar");
 		btPesquisar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				listener.buscarTelefonePeloNome(tNome,textArea, ag); 
+				listener.buscarTelefonePeloNome(tPesquisa,textArea, ag); 
 			}
 		});
 		btPesquisar.setBounds(210, 40, 79, 23);

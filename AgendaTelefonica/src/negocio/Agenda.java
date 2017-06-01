@@ -9,7 +9,7 @@ public interface Agenda {
 	void ordenarPorNome(List contatos) throws CadastroException;
 	List getAgenda() throws CadastroException;
 	String buscarTelefonePeloNome(String nome) throws CadastroException;
-	List listarNomesEmOrdemAlfabetica() throws CadastroException;
+	String listarNomesEmOrdemAlfabetica() throws CadastroException;
 	List recuperarDados() throws CadastroException;
 	boolean salvarDados(Contato contatos) throws CadastroException;
 }

@@ -18,6 +18,6 @@ public class Contato {
 	}
 	@Override
 	public String toString() {
-		return getNome() +" -> "+"Fone: "+getTelefone()+"\n";
+		return getNome() +" "+getTelefone()+"\n";
 	}
 }

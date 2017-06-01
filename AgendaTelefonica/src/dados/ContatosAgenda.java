@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.MappedByteBuffer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -79,19 +80,19 @@ public class ContatosAgenda implements Agenda{
 	 * parâmetro Se encontrar, traz o telefone.
 	 */
 	public String buscarTelefonePeloNome(String nome) throws CadastroException {
-		String telefone = "";
-		for (Contato c : agenda) {
+		String telefone = null;
+		Contato c = null;
+		for(int i = 0; i < agenda.size();i++){
+			c = agenda.get(i);
 			System.out.println(c.toString());
-			if (c.getNome().equals(nome))
-				telefone = c.getTelefone();
-			else {
-				telefone = "Telefone informado não encontrado";
+			if(c.getNome().equalsIgnoreCase(nome)){
+				return c.getTelefone();
 			}
 		}
-		return telefone;
+	return telefone;
 	}
 
-	public List listarNomesEmOrdemAlfabetica() throws CadastroException {
+	public String listarNomesEmOrdemAlfabetica() throws CadastroException {
 		try {
 			// cria uma lista temporaria copiando os contatos da agenda
 			List<Contato> contatos = agenda;
@@ -106,7 +107,7 @@ public class ContatosAgenda implements Agenda{
 				nomes.add(c.getNome());
 			}
 			// retorna nomes já ordenados
-			return nomes;
+			return nomes.toString();
 			
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Falha ao tentar listar nomes em ordem alfabética!", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -140,9 +141,12 @@ public class ContatosAgenda implements Agenda{
 			BufferedReader br = new BufferedReader(fr);
 			//A cada interação, é uma linha do arquivo e atribui-a a temp
 			String linha = br.readLine();
+			//percorre a lendo os dados do txt, ja criando o contato e adicionando a agenda
 			while (linha != null){
-				//Aqui gera a sua "lista". No caso, imprime cada linha na tela.
 				contatosRecuperados.add("\n"+linha);
+				String[] dados = linha.split(";");
+				Contato c = new Contato(dados[0],dados[1]);
+				agenda.add(c);
 				 linha = br.readLine(); // lê da segunda até a última linha
 			}
 		}
@@ -161,7 +165,8 @@ public class ContatosAgenda implements Agenda{
 		try {
 			FileWriter fw = new FileWriter("src/dados/Contatos.txt",true);
         	BufferedWriter buffWrite = new BufferedWriter(fw);
-			buffWrite.write(contato.toString());
+			buffWrite.write(contato.getNome()+";"+contato.getTelefone()+";");
+			buffWrite.newLine();
 			 buffWrite.close();
 			 aux = true;
 			 return aux;

@@ -25,6 +25,7 @@ public class InterfaceListener {
 		String dados = "";
 		for(int i = 0 ; i < contatos.size();i++){
 			dados = dados + contatos.get(i).toString().toUpperCase();
+		
 		}
 		textArea_1.setText(dados);
 	}
@@ -33,13 +34,17 @@ public class InterfaceListener {
 		f.salvarDados(contato);
 	}
 	
-	public void buscarTelefonePeloNome(JTextField tNome,JTextArea textArea, Facade f){
+	public void buscarTelefonePeloNome(JTextField tPesquisa,JTextArea textArea, Facade f){
 		 try {
-			textArea.setText(f.buscarTelefonePeloNome(tNome.getText().toUpperCase()));
+			 String nome = f.buscarTelefonePeloNome(tPesquisa.getText().toUpperCase());
+			textArea.setText(nome);
 		} catch (CadastroException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	public void listarContatosOrdemAlfabetica(JTextArea textArea_1,Facade f) throws CadastroException{
+		textArea_1.setText(f.listarNomesEmOrdemAlfabetica());
 	}
 
 
