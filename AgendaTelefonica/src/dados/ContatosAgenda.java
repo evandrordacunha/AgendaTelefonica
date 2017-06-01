@@ -73,24 +73,24 @@ public class ContatosAgenda implements Agenda{
 	public List<Contato> getAgenda() {
 		return agenda;
 	}
+
 	/**
-	 * Recebe um nome epercorre a agenda tentando localizar o nome passado por parâmetro
-	 * Se encontrar, traz o telefone.
+	 * Recebe um nome epercorre a agenda tentando localizar o nome passado por
+	 * parâmetro Se encontrar, traz o telefone.
 	 */
 	public String buscarTelefonePeloNome(String nome) throws CadastroException {
 		String telefone = "";
-		try {
-			for (Contato c : agenda) {
-				if (c.getNome().equalsIgnoreCase(nome))
-					return c.getTelefone();
+		for (Contato c : agenda) {
+			System.out.println(c.toString());
+			if (c.getNome().equals(nome))
+				telefone = c.getTelefone();
+			else {
+				telefone = "Telefone informado não encontrado";
 			}
-			return "Contato não encontrado!";
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Telefone não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
-			throw new CadastroException("Telefone não encontrado!", e);
 		}
+		return telefone;
 	}
-	
+
 	public List listarNomesEmOrdemAlfabetica() throws CadastroException {
 		try {
 			// cria uma lista temporaria copiando os contatos da agenda

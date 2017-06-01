@@ -14,7 +14,7 @@ public class InterfaceListener {
 	
 	
 	public Contato adicionarContato(JTextField tNome,JTextField tTelefone,Facade f) throws CadastroException{
-		Contato contato = new Contato(tNome.getText(),tTelefone.getText());
+		Contato contato = new Contato(tNome.getText().toUpperCase(),tTelefone.getText().toUpperCase());
 		f.salvarDados(contato);
 		return contato;
 	}
@@ -24,7 +24,7 @@ public class InterfaceListener {
 		contatos = f.recuperarDados();
 		String dados = "";
 		for(int i = 0 ; i < contatos.size();i++){
-			dados = dados + contatos.get(i).toString();
+			dados = dados + contatos.get(i).toString().toUpperCase();
 		}
 		textArea_1.setText(dados);
 	}
@@ -35,7 +35,7 @@ public class InterfaceListener {
 	
 	public void buscarTelefonePeloNome(JTextField tNome,JTextArea textArea, Facade f){
 		 try {
-			textArea.setText(f.buscarTelefonePeloNome(tNome.getText()));
+			textArea.setText(f.buscarTelefonePeloNome(tNome.getText().toUpperCase()));
 		} catch (CadastroException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
